@@ -6,14 +6,14 @@ from pyquery import PyQuery as jq
 import pandas as pd
 from selenium import webdriver as wb
 
-
+#123
 datacol = {0:'id',1:'头像',2:'名字',3:'微博内容',4:'发布时间'}
 
 class wb_demo():
     def __init__(self):
         self.session = requests.Session()
         self.list = []
-        self.auth = ["18395996541", "asdfg159"]
+        self.auth = ["", ""]#帐号密码
         self.login_url = "https://passport.weibo.cn/signin/login"
 
     def update_cookie_chrome(self, headless=None):
@@ -97,7 +97,7 @@ class wb_demo():
 if __name__ == '__main__':
     wbs = wb_demo()
     wbs.update_cookie_chrome()
-    wbs.getGuanzhuList('5404506563')
+    wbs.getGuanzhuList('5404506563')#用户id
 
     df = pd.DataFrame(wbs.list)
     df.rename(columns=datacol,inplace=True)

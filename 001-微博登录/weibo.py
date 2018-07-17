@@ -28,13 +28,13 @@ class wb_demo():
         self.driver.find_element_by_id("loginPassword").send_keys(self.auth[1])
         loginbtn = self.driver.find_element_by_id("loginAction")
         loginbtn.click()
-        while True:
-            time.sleep(7)
-            if "verifycode_box" in self.driver.page_source:
-                input("waiting for checkcode>>>")
-                # loginbtn.click()
-            else:
-                break
+        # while True:
+        #     time.sleep(7)
+        #     if "verifycode_box" in self.driver.page_source:
+        #         input("waiting for checkcode>>>")
+        #         # loginbtn.click()
+        #     else:
+        #         break
         self.driver.implicitly_wait(30)
         self.driver.implicitly_wait(30)
         self.session.cookies.update(
@@ -50,9 +50,9 @@ class wb_demo():
         for i in range(1,int(max_num) //10 + 2):
             print("正在获取第{}页的关注列表:".format(i))
             self.getGuanzhu(uid,i)
-            t = random.randint(1,8)
-            print("休眠时间为:{}s".format(t))
-            time.sleep(t)
+            # t = random.randint(1,8)
+            # print("休眠时间为:{}s".format(t))
+            # time.sleep(t)
     def getGuanzhu(self,containerid,page):
         url = f"https://weibo.cn/{containerid}/follow?page={page}"
         resp = self.session.get(url)
@@ -78,9 +78,9 @@ class wb_demo():
         print('总页数：' + str(max_num))
         for i in range(1,max_num):
             self.getContent(i,uid)
-            t = random.randint(1,6)
-            print("休眠时间为:{}s".format(t))
-            time.sleep(t)
+            # t = random.randint(1,6)
+            # print("休眠时间为:{}s".format(t))
+            # time.sleep(t)
         
     def getContent(self,page,uid):
         resp = self.session.get(f'https://weibo.cn/{uid}?filter=0&page={page}')
@@ -92,11 +92,21 @@ class wb_demo():
                 self.list.append(lists)
 
 
+    def getMyContent(self,uid):
+        for i in range(1,5):
+            resp = self.session.get(f'https://weibo.cn/{uid}/profile?page={i}')
+            for aa in jq(resp.content)('.c').items():
+                content = aa('.ctt').text()
+                time = aa('.ct').text()
+                if content != "":
+                    lists = ['','','',content,time]
+                    self.list.append(lists)
 
 
 if __name__ == '__main__':
     wbs = wb_demo()
     wbs.update_cookie_chrome()
+    wbs.getMyContent('5404506563')
     wbs.getGuanzhuList('5404506563')#用户id
 
     df = pd.DataFrame(wbs.list)

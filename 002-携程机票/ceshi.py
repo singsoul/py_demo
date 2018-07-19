@@ -1,0 +1,7 @@
+import requests
+
+burp0_url = "http://flights.ctrip.com:80/itinerary/api/12808/products"
+burp0_cookies = {"_abtest_userid": "e1a3dd65-a0b2-47ef-836c-a4abe7acaa32", "_bfa": "1.1523348937463.3q1ygg.1.1531964129237.1531981993958.8.12", "_RF1": "36.27.55.194", "_RSG": "1Z4gRojpAIEw15JltYtbY8", "_RDG": "288bca7b096f6d22e418d93e9af6ab9e5d", "_RGUID": "e48acedc-9ba8-48c1-88a5-de2def4c507a", "__zpspc": "9.7.1531964132.1531964132.1%234%7C%7C%7C%7C%7C%23", "_jzqco": "%7C%7C%7C%7C1523851129902%7C1.2036090304.1523348943464.1523851274792.1531964132676.1523851274792.1531964132676.undefined.0.0.10.10", "_ga": "GA1.2.469993046.1523348945", "_bfs": "1.1", "MKT_Pagesource": "PC"}
+burp0_headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0", "Accept": "*/*", "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3", "Accept-Encoding": "gzip, deflate", "Content-Type": "application/json", "Origin": "http://flights.ctrip.com", "Referer": "http://flights.ctrip.com/itinerary/oneway/bjs-sha?date=2018-07-25&portingToken=24085c2b56de4795aefeb39c676b0d7d", "Connection": "close"}
+burp0_json={"airportParams": [{"acity": "sha", "acityname": "\xe4\xb8\x8a\xe6\xb5\xb7", "date": "2018-07-25", "dcity": "bjs", "dcityname": "\xe5\x8c\x97\xe4\xba\xac"}], "classType": "ALL", "flightWay": "Oneway", "hasBaby": False, "hasChild": False, "portingToken": "24085c2b56de4795aefeb39c676b0d7d", "searchIndex": 1}
+resp = requests.post(burp0_url, headers=burp0_headers, cookies=burp0_cookies, json=burp0_json)
